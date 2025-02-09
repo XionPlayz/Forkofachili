@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Roblox Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        .game-container {
+            display: none; /* Initially hide the iframe */
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Roblox Game</h1>
+    <p>Click the button below to play the game:</p>
+    
+    <!-- Link to Open the Game -->
+    <a href="#" id="playButton" style="font-size: 20px; padding: 10px 20px; background-color: #1e90ff; color: white; text-decoration: none; border-radius: 5px;">
+        Play the Game
+    </a>
+
+    <!-- Hidden iframe that will appear after clicking the button -->
+    <div class="game-container" id="gameContainer">
+        <iframe id="gameIframe" src="https://now.gg/roblox/2753915549" width="100%" height="600" frameborder="0"></iframe>
+    </div>
+
+    <script>
+        // When the user clicks the link, show the iframe with the game
+        document.getElementById('playButton').addEventListener('click', function(e) {
+            e.preventDefault();  // Prevent default link behavior
+            document.getElementById('gameContainer').style.display = 'block';  // Show the iframe container
+            this.style.display = 'none';  // Hide the play button
+            
+            // Try to hide ads or elements with a specific class or ID (if they have one)
+            var iframe = document.getElementById('gameIframe');
+            var iframeWindow = iframe.contentWindow;
+
+            iframeWindow.addEventListener('load', function() {
+                try {
+                    // Example: try to hide specific elements (such as ads)
+                    var ads = iframeWindow.document.querySelectorAll('.ad, .timer');  // Change classes if you know the ad/timer classes
+                    ads.forEach(function(ad) {
+                        ad.style.display = 'none';
+                    });
+                } catch (error) {
+                    console.error('Error hiding ads or timers: ', error);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
